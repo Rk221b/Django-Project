@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="text-center">
+    <h1>Coordinator Page</h1>
+    </div>
+    <br>
+    <div class="row">   
+        <h3>Coordinator Name : {{coordinatorName}} </h3>
+    </div>
+    <hr>
+     <h3>Events Coordinated</h3>
+    <div class="row">
+        <ul>
+            {% for event in events %}
+            <li>{{event}}</li>
+            {% endfor %}
+        </ul>  
+    </div>
+    <div class="row">
+        <div class="col">
+            <h3>Student Name</h3>
+        <ul>
+            {% for name_info in student_name_info %}
+            <li>{{ name_info }}</li>
+            {% endfor %}
+        </ul>
+        </div>
+        <div class="col">
+            <h3>Student Stream</h3>
+            <ul>
+                {% for stream_info in student_stream_info %}
+                <li>{{ stream_info }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col">
+            <h3>Event Participated</h3>
+            <ul>
+                {% for event_info in student_event_info %}
+                <li>{{ event_info }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <hr>
+     <form method="POST" action="create_event">
+         {% csrf_token %}
+         <h4>
+             ADD EVENT
+         </h4>
+          <hr>
+        <div class="form-group">
+            <input type="hidden" name="coordinatorName" id="coorName" value="{{coordinatorName}}">
+            <input type="hidden" name="coordinatorPass" value="{{ coordinatorPass }}" />
+            <input type="text" name="eName" id="newEvent" placeholder="Add New Event">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Event</button>
+
+    </form>
+    <hr>
+    <form action="logout" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Logout</button>
+    </form>
+
+</div>
+
+{% endblock %}
+
+{% block script %} 
+<script>
+
+$(document).on('submit','new_event_form',function(e){
+ $('#newEvent').val('');
+ });
+ 
+ $(document).on('submit','new_event_form',function(e){
+
+    e.preventDefault();
+
+    $.ajax({
+        type:"POST",
+        url: 'create_event/',
+        data:{
+            coordinator_name: "{{coordinatorName}}",
+            event_name: $('#newEvent').val(),
+            csrfmiddlewaretoken : $('input[name=csrfmiddlewaretoken]').val()
+        },
+        success: function(){
+            alert("New Event Added");
+        }
+    });
+
+ });
+
+</script>
+{% endblock %}

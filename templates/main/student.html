@@ -1,0 +1,74 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+
+{% block style %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="text-center">
+        <h1>Student Page</h1>
+    </div>
+    <br>
+    <div class="row">
+        <h3>Student Name : {{studentName}} | Stream: {{stream_info}} </h3>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col">
+            <h3>Events Participated</h3>
+        <ul>
+            {% for event in events %}
+            <li>{{event}}</li>
+            {% endfor %}
+        </ul>
+        </div>
+        <div class="col">
+            <h3>Coordinator Name</h3>
+            <ul>
+                {% for name_info in coordinator_info %}
+                <li>{{ name_info }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <h4>
+        Participate in Events
+    </h4>
+    <hr>
+    {% for event in events_list %}
+    <form method="POST" action="add_event">
+        {% csrf_token %}
+        <div class="form-group">
+              <input type="hidden" value="{{studentName}}" name="studentName" />
+              <input type="hidden" value="{{stream_info}}" name="stream_info" />
+             <input type="hidden" value="{{event}}" name="eventName" />
+             <button type="submit" class="btn btn-primary" name="{{event}}">{{event}}</button>
+             <br>
+             <hr>
+        </div>
+
+    </form>
+    {% endfor %}
+
+     </form>
+     <hr>
+     <form action="logout" method="POST">
+         {% csrf_token %}
+         <button type="submit" class="btn btn-primary">Logout</button>
+     </form>
+
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}

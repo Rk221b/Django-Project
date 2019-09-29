@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+
+{% load static %}
+
+
+{% block style %}
+
+<style>
+
+body{
+    background-color: #DAE0E2
+}
+
+.container{
+    margin-top: 17%;
+    margin-right: 6%;
+}
+
+a{
+    color: white;
+}
+
+.center {
+text-align: center;
+margin-top: 2%;
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+<h1 class="center">Event Shala</h1>
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header">Co-ordinator</div>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'login_coordinator' %}">Co-ordinator
+                            Login/Registration</a></h5>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-warning mb-3" style="max-width: 18rem;">
+                <div class="card-header">Student</div>
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'login_student' %}">Student <br> Login/Registration
+                    </a></h5>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
